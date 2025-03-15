@@ -16,6 +16,16 @@ removeFromGroup() {
     sudo usermod -r -G $group $user
 }
 
+printAudit() {
+    echo "enter an output file path (if empty, stdout is used):"
+    read out
+    if [ -z "$out" ]
+    then
+        out=/dev/stdout
+    fi
+    sudo ausearch -k watch-intranet > $out
+}
+
 
 while [ 1 = 1 ]
 do
@@ -32,9 +42,9 @@ do
     case $userInput in
         1) addToGroup ;;
         2) removeFromGroup ;;
-        3) echo "hello" ;;
+        3) echo "TODO" ;;
         4) ./update.sh ;;
-        5) sudo ausearch -k watch-intranet ;;
+        5) printAudit ;;
         *) exit 0
     esac
     echo ""

@@ -1,6 +1,6 @@
 #! /bin/bash
 
-# make sure this script is run with appropriate privileges.
+# make sure the script is run with adequate privileges
 if [ $(id -u) -ne 0 ]
 then
     echo "ERROR: this script must be run as root or using sudo."
@@ -16,6 +16,7 @@ then
 fi
 
 # create admin user as a member of employees
+# this prints out an error message on Fedora but succeeds anyway (related: https://bugzilla.redhat.com/show_bug.cgi?id=2313559)
 useradd admin -G employees
 if [ $? -ne 0 ]
 then
@@ -23,11 +24,10 @@ then
     exit 1
 fi
 
-# to finalize the setup of admin, the user needs to be 
+# to finalize the setup, the admin needs to be 
 # given a password and sudo privileges
 # i'm not including it here because it's different on
-# Fedora and Ubuntu
-
+# Fedora and Ubuntu; to be covered in the video
 
 ca2=/home/admin/ca-2
 # copy useful scripts to the admin's home directory
@@ -77,13 +77,11 @@ chown -R admin:employees $intranet
 chown -R admin $live
 chown -R admin $ca2
 
-# update crontab to run the update script each night at 11
-echo "0 23 * * * admin $ca2/update.sh" >> /etc/crontab
+# update crontab to run the update script each night at 2 am
+echo "0 2 * * * admin $ca2/update.sh" >> /etc/crontab
 
 # add a rule that instructs auditd to watch the intranet dir for writes and attribute modifications.
-# I originally had this as "auditctl -w /var/www/html/intranet -p wa" but it generated a warning
-# about "old style" rules being slower.
-# echo "-a always,exit -F arch=$(uname -m) -F dir=$intranet -F perm=wa -k intranet_changes" >> /etc/audit/rules.d/audit.rules
+# initially this wasn't working because there was a default rule before it that disabled all subsequent rules
 echo "-w /var/www/html/intranet -p wa -k watch-intranet" >> /etc/audit/rules.d/audit.rules
 
 
