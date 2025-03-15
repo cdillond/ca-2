@@ -7,21 +7,26 @@ then
     exit 1
 fi
 
-# read the pw from a text file
-admin_pw=$(cat admin_pw.txt)
-if [ -z "$admin_pw" ]
+# create employees group
+groupadd employees
+if [ $? -ne 0 ] 
 then
-    echo "ERROR: admin_pw.txt must exist and must contain a valid password."
+    echo "ERROR: this script should only be run once!"
     exit 1
 fi
 
-# create employees group
-groupadd employees
+# create admin user as a member of employees
+useradd admin -G employees
+if [ $? -ne 0 ]
+then
+    echo "ERROR: problem adding admin."
+    exit 1
+fi
 
-# create admin user
-useradd -p $admin_pw admin
-# add admin to employees and sudoers
-usermod -a -G employees,sudo admin
+# to finalize the setup of admin, the user needs to be 
+# given a password and sudo privileges
+# i'm not including it here because it's different on
+# Fedora and Ubuntu
 
 
 ca2=/home/admin/ca-2
@@ -78,8 +83,8 @@ echo "0 23 * * * admin $ca2/update.sh" >> /etc/crontab
 # add a rule that instructs auditd to watch the intranet dir for writes and attribute modifications.
 # I originally had this as "auditctl -w /var/www/html/intranet -p wa" but it generated a warning
 # about "old style" rules being slower.
-echo "-a always,exit -F arch=$(uname -u) -F dir=$intranet -F perm=wa -k intranet_changes" >> /etc/audit/rules.d/audit.rules
-
+# echo "-a always,exit -F arch=$(uname -m) -F dir=$intranet -F perm=wa -k intranet_changes" >> /etc/audit/rules.d/audit.rules
+echo "-w /var/www/html/intranet -p wa -k watch-intranet" >> /etc/audit/rules.d/audit.rules
 
 
 
