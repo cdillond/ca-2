@@ -43,7 +43,7 @@ then
     status=$?
 fi
 
-if [ status -ne 0 ]
+if [ $status -ne 0 ]
 then
     echo "enter sudo group name (e.g. wheel on Fedora or sudo on Ubuntu)"
     read sudoers

@@ -2,7 +2,7 @@
 
 if [ $(id -u) -ne 0 ]
 then
-    echo "setup_pt2.sh must be run with root privileges" >&2
+    echo "setup2.sh must be run with root privileges" >&2
     exit 1
 fi
 
