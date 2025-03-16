@@ -8,13 +8,9 @@ fi
 
 ca2=/home/admin/ca-2
 # copy useful scripts to the admin's home directory
-mkdir -p $ca2/scripts
-cp menu.sh $ca2/
-
-cp backup.sh $ca2/scripts/
-cp lock.sh $ca2/scripts/
-cp pull_live.sh $ca2/scripts/
-cp update.sh $ca2/scripts/
+mkdir -p $ca2
+cp scripts $ca/scripts
+mv $ca/scripts/menu.sh $ca/menu.sh
 
 
 # create the website's parent directory if it doesn't exist
