@@ -9,8 +9,9 @@ fi
 ca2=/home/admin/ca-2
 # copy useful scripts to the admin's home directory
 mkdir -p $ca2
-cp scripts $ca/scripts
-mv $ca/scripts/menu.sh $ca/menu.sh
+cp -r scripts $ca2/
+mv $ca2/scripts/menu.sh $ca2/menu.sh
+mv $ca2/scripts/README.md $ca2/README.md
 
 
 # create the website's parent directory if it doesn't exist
@@ -29,7 +30,12 @@ chown -R admin $live
 chown -R admin $ca2
 
 # set up the git repos as admin
-runuser -u admin ./setup_git.sh $ca2 $intranet $live
+runuser -u admin ./setup/setup3.sh $ca2 $intranet $live
+status=$?
+if [ $status -ne 0 ]
+then
+  exit $status
+fi
 
 # update crontab to run the update script each night at 2 am
 echo "0 2 * * * root $ca2/scripts/update.sh" >> /etc/crontab

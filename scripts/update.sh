@@ -1,10 +1,11 @@
 #! /bin/bash
 
-if [ $(id -u) -ne 0 ]
+/home/admin/ca-2/lock.sh "automatic backup $(date)"
+status=$?
+if [ $status -ne 0 ]
 then
-    echo "lock.sh must be run with root privileges" >&2
-    exit 1
+    exit $status
 fi
 
-/home/admin/ca-2/lock.sh "automatic backup $(date)"
 runuser -u admin /home/admin/ca-2/scripts/pull_live.sh
+exit $?

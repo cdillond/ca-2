@@ -6,7 +6,6 @@ then
     exit 1
 fi
 
-
 intranet=/var/www/html/intranet
 # restricting access to the intranet while the backup is in
 # progress turns out to be somewhat complicated. I'm implementing
@@ -28,12 +27,12 @@ chown admin:apache $intranet
 #    its subdirectories from being made by non-admin users.
 chmod 750 $intranet
 
-runuser -u admin /home/admin/ca-2/scripts/backup.sh $1
+runuser -u admin /home/admin/ca-2/scripts/backup.sh "$1"
+status=$?
 
 # the previous permissions changes can now be undone. 
 chmod 755 $intranet
 chown admin:employees $intranet
 chmod 775 $intranet
 
-
-
+exit $status

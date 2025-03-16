@@ -10,3 +10,4 @@ fi
 # pull changes to live
 cd /home/admin/ca-2/live.git
 git pull origin main
+exit $?

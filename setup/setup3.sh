@@ -19,13 +19,26 @@ git config -f $gitCfg user.name "admin"
 # any employee could delete and replace it, even without write access
 # to the .git directory. Keeping the repos separate also hides them from
 # the http server. I don't want the repos to be accessible by http clients,
-# and storing them in the admin's home directory means that there's no need
-# 1) worry about making sure the permissions are always correct and 2) update
-# the httpd config to prevent access to them.
+# and storing them in the admin's home directory means that there's 1) no
+# need to worry about making sure the permissions are always correct and 2) no 
+# need to update the httpd config to prevent access to them.
 intranetGit=$ca2/intranet.git
 liveGit=$ca2/live.git
+
 git --git-dir=$intranetGit --work-tree=$intranet init
+status=$?
+if [ $status -ne 0 ]
+then
+  exit $status
+fi
+
 git --git-dir=$liveGit --work-tree=$live init
+status=$?
+if [ $status -ne 0 ]
+then
+  exit $status
+fi
 
 cd $liveGit
 git remote add origin $intranetGit
+exit $?

@@ -7,6 +7,14 @@ then
 fi
 
 cd /home/admin/ca-2/intranet.git
-# stage all changes
+
+# stage and commit all changes
 git add .
+status=$?
+if [ $status -ne 0 ]
+then
+    exit $status
+fi
+
 git commit -m "$1"
+exit $?
