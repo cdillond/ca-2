@@ -7,4 +7,4 @@ then
 fi
 
 /home/admin/ca-2/lock.sh "automatic backup $(date)"
-runuser -u admin /home/admin/ca-2/pull_live.sh
+runuser -u admin /home/admin/ca-2/scripts/pull_live.sh
