@@ -5,7 +5,7 @@ intranet=$2
 live=$3
 
 cd $ca2
-# update git settings for admin to avoid warnings later
+# update git settings for admin to avoid warnings later.
 gitCfg=/home/admin/.gitconfig
 git config -f $gitCfg init.defaultBranch "main"
 git config -f $gitCfg user.email "noreply@example.com" 

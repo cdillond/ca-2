@@ -19,11 +19,11 @@ chmod 755 $intranet
 # 
 # 2) change the group to apache. This prevents subsequent steps from 
 #    disrupting access to the intranet site. it is also fine for now
-#    because httpd's permissions level is unchanged.
+#    because apache's permissions level is unchanged.
 chown admin:apache $intranet
 #
 # 3) disallow all access to $intranet by users other than admin and
-#    httpd. this should prevent any changes to files in $intranet or
+#    apache. this should prevent any changes to files in $intranet or
 #    its subdirectories from being made by non-admin users.
 chmod 750 $intranet
 
