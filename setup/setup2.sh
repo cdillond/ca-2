@@ -11,7 +11,6 @@ ca2=/home/admin/ca-2
 mkdir -p $ca2
 cp -r scripts $ca2/
 mv $ca2/scripts/menu.sh $ca2/menu.sh
-mv $ca2/scripts/README.md $ca2/README.md
 
 
 # create the website's parent directory if it doesn't exist.
