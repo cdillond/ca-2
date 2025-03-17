@@ -68,13 +68,13 @@ fi
 
 echo "**********"
 echo "updates have been applied to /etc/crontab and /etc/audit/rules.d/audit.rules"
-read -p "do you wish to make additional changes to /etc/crontab? [y/n] " confirm
+read -p "do you wish to make additional changes to /etc/crontab? [y/n]: " confirm
 if [ $confirm = "y" ]
 then
     sudoedit /etc/crontab
 fi
 echo "**********"
-read -p "do you wish to confirm changes made to /etc/audit/rules.d/audit.rules? [y/n] " confirm
+read -p "do you wish to confirm changes made to /etc/audit/rules.d/audit.rules? [y/n]: " confirm
 if [ $confirm = "y" ]
 then
     sudoedit /etc/audit/rules.d/audit.rules
