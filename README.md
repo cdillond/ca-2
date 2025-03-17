@@ -14,7 +14,7 @@ The setup process, initiated by `setup.sh`, involves the following steps:
 5) Create `/var/www/html/live`, `/var/www/html/intranet`, and `/home/admin/ca-2` directories and set ownership and permissions as needed.
 6) Copy files from `./scripts` to `/home/admin/ca-2/scripts` and move some of those files to `/home/admin/ca-2`.
 7) Set `git` configuration options for `admin`.
-8) Initialize `git` repos for `/var/www/html/intranet` and `/var/www/html/live`. The `git` repos are stored in `/home/admin/intranet.git` and `/home/admin/live.git` respectively.
+8) Initialize `git` repos for `/var/www/html/intranet` and `/var/www/html/live`. The `git` repos are stored in `/home/admin/ca-2/intranet.git` and `/home/admin/ca-2/live.git` respectively.
 9) Add the intranet `git` repo as the remote origin of the live `git` repo.
 10) Append a line to `/etc/crontab` that instructs the `cron` to backup the intranet site and update the live site each day at 2:00 am.
 11) Append a line to `/etc/audit/rules.d/audit.rules` that instructs `auditd` to watch the `/var/www/html/intranet` for writes and file attribute changes.
@@ -24,7 +24,7 @@ The setup process, initiated by `setup.sh`, involves the following steps:
 The solution here involves a somewhat unconventional usage of `git`. Instead of operating a `git` server that accepts and merges pull requests from employees, employees are given direct write access to `/var/www/html/intranet`. Changes made by employees to files in this directory are monitored by the `auditd` daemon. The system periodically stages and commits changes to all files in the intranet working tree. It therefore maintains a backup of the entire history of *staged* changes to the intranet site. During the backup process, employees are prohibited from updating files in the working tree (with a minor caveat related to symlinks explained in the video). Once changes have been staged, the `admin` can review them (if desired) with no risk of the stored changes being maliciously altered by employees in between the time of review and the time of publication to the live site. The `admin` (or system) can then pull committed changes from the intranet repo to the live repo. Because the live repo serves mostly as a mirror of the upstream internet repo and changes are never made directly to the live working tree without having first been made to the intranet working tree, this process should never result in merge conflicts.
 
 ## Running the Program
-Once the setup process has been completed, the `admin` user can manage the system by running the `menu.sh` script, which should have been copied to the `/home/admin/ca-2` directory. This script allows `admin` to add a user to a group, remove a user from a group, backup (i.e., stage and commit) all changes to the intranet working tree, update the live repo, and print reports detailing all changes made to the `/var/www/html/intranet` directory.
+Once the setup process has been completed, the `admin` user can manage the system by running the `menu.sh` script, which should have been copied to the `/home/admin/ca-2` directory by `setup.sh`. This script allows `admin` to add a user to a group, remove a user from a group, backup (i.e., stage and commit) all changes to the intranet working tree, update the live repo, and print audit reports detailing all changes made to the `/var/www/html/intranet` directory.
 
 ## Uninstalling
 To revert changes made by `setup.sh`, run `undo.sh`.
