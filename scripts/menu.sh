@@ -2,8 +2,8 @@
 
 addOrRemove()
 {
-    read -prompt "enter username: " user
-    read -prompt "enter group: " group
+    read -p "enter username: " user
+    read -p "enter group: " group
     sudo usermod -$1 -G $group $user
 }
 
@@ -20,7 +20,7 @@ removeFromGroup() {
 
 # printAudit prints the audit report from auditd to stdout or a specified file.
 printAudit() {
-    read -prompt "enter an output file path (if empty, stdout is used): " out
+    read -p "enter an output file path (if empty, stdout is used): " out
 
     if [ -z "$out" ]
     then
@@ -32,7 +32,7 @@ printAudit() {
 }
 
 backup() {
-    read -prompt "enter a commit message: " message
+    read -p "enter a commit message: " message
 
     sudo /home/admin/ca-2/scripts/lock.sh
     if [ $? -ne 0 ]
@@ -63,7 +63,7 @@ transfer() {
 # urgentUpdate stages changes to a file to the intranet git repo, commits those changes,
 # and pulls the updates to the live git repo.
 urgentUpdate() {
-    read -prompt "enter the file name: " fileName
+    read -p "enter the file name: " fileName
     
     backup $fileName
     if [ $? -ne 0 ]
