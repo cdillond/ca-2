@@ -1,3 +1,3 @@
 #! /bin/bash
 
-./setup/setup.sh
+./setup/setup1.sh

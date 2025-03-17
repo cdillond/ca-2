@@ -1,3 +1,4 @@
+## About
 This project is divided into two directories: `setup` and `scripts`. Scripts in the `setup` directory are concerned with preparing the environment that the program should be run in. Scripts in the `scripts` directory are used by the `admin` user created during the setup process.
 
 Installation requirements and dependencies:

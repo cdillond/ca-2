@@ -24,10 +24,10 @@ printAudit() {
 
     if [ -z "$out" ]
     then
-        sudo ausearch -k watch-intranet
+        sudo ausearch -k audit-intranet
     else
         # the output file will be owned by root, but that should be ok
-        sudo ausearch -k watch-intranet | sudo tee $out > /dev/null
+        sudo ausearch -k audit-intranet | sudo tee $out > /dev/null
     fi
 }
 
