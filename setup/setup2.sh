@@ -43,4 +43,4 @@ echo "0 2 * * * root $ca2/scripts/update.sh" >> /etc/crontab
 # initially this wasn't working because there was a default rule before it that disabled all subsequent rules
 # currently just watching for writes, not attribute changes, to avoid cluttering the logs
 echo "-w /var/www/html/intranet -p w -k audit-intranet" >> /etc/audit/rules.d/audit.rules
-exit $?
+

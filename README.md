@@ -17,7 +17,7 @@ The setup process, initiated by `setup.sh`, involves the following steps:
 7) Set `git` configuration options for `admin`.
 8) Initialize `git` repos for `/var/www/html/intranet` and `/var/www/html/live`. The `git` repos are stored in `/home/admin/ca-2/intranet.git` and `/home/admin/ca-2/live.git` respectively.
 9) Add the intranet `git` repo as the remote origin of the live `git` repo.
-10) Append a line to `/etc/crontab` that instructs the `cron` to backup the intranet site and update the live site each day at 2:00 am.
+10) Append a line to `/etc/crontab` that instructs `cron` to backup the intranet site and update the live site each day at 2:00 am.
 11) Append a line to `/etc/audit/rules.d/audit.rules` that instructs `auditd` to watch the `/var/www/html/intranet` for writes and file attribute changes.
 12) Prompt the user to manually edit `/etc/crontab` and `/etc/audit/rules.d/audit.rules` if needed.
 

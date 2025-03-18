@@ -1,10 +1,21 @@
 #! /bin/bash
 
-# This script can handle [0, 2] args. The first arg is always
-# interpreted as the commit message and the second arg is always
-# interpreted as the file name. If 0 args are given, the user is
-# prompted for a commit message by git. If the second arg is not
-# provided, a default value of "." is used instead.
+# This script should be invoked with at least 1 and no more 
+# than 3 args. The first argument must always be a mask, 
+# indicating which of the two other args have also been provided:
+# 1<<0: file name is provided
+# 1<<1: commit message is provided
+# This results in the following scenarios:
+# 0 --> git add . && git commit
+# 1 --> git add $2 && git commit
+# 2 --> git add . && git commit -m "$2"
+# 3 --> git add $2 && git commit -m "$3"
+#
+# valid usages include:
+# ./backup.sh 0 
+# ./backup.sh 1 filename.txt
+# ./backup.sh 2 "message"
+# ./backup.sh 3 filename.txt "message"
 
 if [ $(whoami) != "admin" ]
 then
@@ -21,7 +32,17 @@ then
     exit $status
 fi
 
-fileName=$2
+fileName="."
+message=""
+case $1 in
+    0)  ;;
+    1)  fileName="$2" ;;
+    2)  message="$2" ;;
+    3)  fileName="$2"
+        message="$3" ;;
+    *)  ;;
+esac
+
 if [ -z "$fileName" ]
 then
     fileName="."
@@ -37,17 +58,17 @@ then
 fi
 
 # commit changes
-# if the user failed to provide a commit message, $EDITOR will pop up
-if [ -z "$1" ]
+# if the user doesnt provide a commit message, $EDITOR will pop up
+if [ -z "$message" ]
 then
     git commit
 else
-    git commit -m "$1"
+    git commit -m "$message"
 fi
 
 status=$?
 if [ $status -ne 0 ]
 then
     echo "ERROR: unable to commit changes to /var/www/html/intranet" >&2
+    exit $status
 fi
-exit $status

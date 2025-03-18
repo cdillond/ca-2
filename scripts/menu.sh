@@ -32,15 +32,20 @@ printAudit() {
 }
 
 backup() {
-    read -p "enter a commit message: " message
-
     sudo /home/admin/ca-2/scripts/lock.sh
     if [ $? -ne 0 ]
     then
         echo "ERROR: failed to lock /var/www/html/intranet; backup not completed" >&2
         return 1
     fi
-    /home/admin/ca-2/scripts/backup.sh "$message" $1
+
+    if [ -z "$1" ] # check if a file name has been provided
+    then
+        /home/admin/ca-2/scripts/backup.sh 0
+    else
+        /home/admin/ca-2/scripts/backup.sh 1 "$1"
+    fi
+    
     if [ $? -ne 0 ]
     then
         echo "ERROR: backup of /var/www/html/intranet failed" >&2

@@ -14,7 +14,7 @@ then
     exit 1
 fi
 
-runuser -u admin /home/admin/ca-2/scripts/backup.sh "automatic backup $(date)"
+runuser -u admin /home/admin/ca-2/scripts/backup.sh 2 "automatic backup $(date)"
 backup_status=$?
 
 if [ $backup_status -ne 0 ]
