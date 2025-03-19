@@ -7,6 +7,8 @@ then
     exit 1
 fi
 
+# this is sort of a hack for compatibility with 
+
 /home/admin/ca-2/scripts/lock.sh
 if [ $? -ne 0 ]
 then

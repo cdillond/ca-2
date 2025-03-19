@@ -3,7 +3,8 @@
 # The name of the group of the system user running the apache
 # web server can change at runtime depending on the server's configuration.
 # On Debian/Ubuntu, this value is defined in /etc/apache2/envvars. On Fedora,
-# it can be found in /etc/httpd/conf/httpd.conf.
+# it can be found in /etc/httpd/conf/httpd.conf. The defaults are www-data (Ubuntu)
+# and apache (Fedora).
 #
 # To query the server for this information, the name of the program provided
 # by the server for controlling the server's systemd service needs to be known
@@ -16,7 +17,7 @@
 # access to the intranet directory during backups, but won't have any other effects.
 
 # *** TO BE REPLACED WITH programName BY setup.sh ***
-#%
+%
 
 groupName=""
 if [ -v $programName ]
