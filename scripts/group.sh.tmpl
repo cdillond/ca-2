@@ -20,7 +20,7 @@
 %
 
 groupName=""
-if [ -v $programName ]
+if [ -n "$programName" ]
 then
     # The line we're looking for should read something like 'Group: name="apache" id=48 not_used'
     # The awk statement sets the delimeter to to '"' and then prints the second field of the line
@@ -28,7 +28,7 @@ then
     groupName="$($programName -S | awk -F'"' '/Group:/ { print $2 }')"
 fi
 
-if [ -n "$groupName" ]
+if [ -z "$groupName" ]
 then
     groupName=admin
 fi

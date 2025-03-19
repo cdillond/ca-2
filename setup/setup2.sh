@@ -11,7 +11,9 @@ ca2=/home/admin/ca-2
 mkdir -p $ca2
 cp -r scripts $ca2/
 # update group.sh to reflect the correct name of the apache daemon.
-sed -i s/#%/programName=$1/ $ca2/scripts/group.sh
+sed -i s/%/programName=$1/ $ca2/scripts/group.sh.tmpl
+mv $ca2/scripts/group.sh.tmpl $ca2/scripts/group.sh
+chmod +x $ca2/scripts/group.sh
 mv $ca2/scripts/menu.sh $ca2/menu.sh
 
 
