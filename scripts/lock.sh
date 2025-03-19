@@ -6,6 +6,8 @@ then
     exit 1
 fi
 
+group="$(/home/admin/ca-2/scripts/group.sh)"
+
 intranet=/var/www/html/intranet
 # Restricting access to $intranet while the backup is in
 # progress turns out to be somewhat complicated. I'm implementing
@@ -25,10 +27,10 @@ fi
 # 2) Change the group on $intranet to apache. This prevents subsequent steps from 
 #    disrupting access to the intranet site. It is fine for now
 #    because apache's permissions level is unchanged.
-chown admin:apache $intranet
+chown admin:$group $intranet
 if [ $? -ne 0 ]
 then
-    echo "ERROR: unable to update ownership of $intranet to admin:apache" >&2
+    echo "ERROR: unable to update ownership of $intranet to admin:$group" >&2
     # attempt to roll back permissions change
     chmod 775 $intranet
     exit 1

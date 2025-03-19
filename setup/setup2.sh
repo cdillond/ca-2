@@ -10,6 +10,8 @@ ca2=/home/admin/ca-2
 # copy useful scripts to the admin's home directory.
 mkdir -p $ca2
 cp -r scripts $ca2/
+# update group.sh to reflect the correct name of the apache daemon.
+sed -i s/#%/programName=$1/ $ca2/scripts/group.sh
 mv $ca2/scripts/menu.sh $ca2/menu.sh
 
 
@@ -26,7 +28,7 @@ chmod 775 $intranet
 # these dirs are currently owned by root; hand them over to admin.
 chown -R admin:employees $intranet
 chown -R admin $live
-chown -R admin $ca2
+chown -R admin /home/admin
 
 # set up the git repos as admin
 runuser -u admin ./setup/setup3.sh $ca2 $intranet $live

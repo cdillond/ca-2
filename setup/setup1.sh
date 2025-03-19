@@ -57,9 +57,26 @@ then
     echo "ERROR: admin not added to sudoers" >&2
 fi
 
+# determine the name of the executable that provides an interface to
+# control the server's systemd service
+# https://manpages.ubuntu.com/manpages/trusty/man8/apache2ctl.8.html
+programName=""
+while [ -z "$programName" ]
+do
+    if type httpd 1>/dev/null 2>/dev/null
+    then
+        programName=httpd
+    elif type apache2ctl 1>/dev/null 2>/dev/null
+    then
+        programName=apache2ctl
+    else
+        read -p "enter the name of the apache systemd control program: " programName
+    fi
+done
+
 
 # run the entirety of setup2.sh as superuser.
-sudo ./setup/setup2.sh
+sudo ./setup/setup2.sh "$programName"
 status=$?
 if [ $status -ne 0 ]
 then

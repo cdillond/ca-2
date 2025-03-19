@@ -4,7 +4,7 @@ This project is divided into two directories: `setup` and `scripts`. Scripts in 
 Installation requirements and dependencies:
 1) A Linux distribution. I run this on Fedora, but it should work with Ubuntu, Debian, and others -- although some tweaks may be necessary.
 2) The user setting up the system needs to be able to run commands via `sudo`.
-3) The Apache `httpd` server must be installed and *must* operate as a system user named `apache`. In order for the web server to work, the `httpd` `systemd` service needs to be enabled and running. 
+3) The Apache `httpd`/`apache2` server must be installed and running. 
 4) `git` 
 
 The setup process, initiated by `setup.sh`, involves the following steps:
